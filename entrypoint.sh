@@ -9,7 +9,7 @@ cat << EOM >> /etc/pacman.conf
 Include = /etc/pacman.d/mirrorlist
 
 [beyondaur]
-Server = https://beyondaur.github.io/__repo__/pkgs/\$arch
+Server = https://beyondaur.github.io/__repo__/\$arch
 EOM
 
 pacman -Syu --noconfirm --needed base-devel
