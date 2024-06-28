@@ -1,4 +1,4 @@
-FROM ghcr.io/beyondaur-aux/beyondaur-archlinux-docker:v2.3
+FROM ghcr.io/beyondaur-aux/beyondaur-archlinux-docker:v2.4
 COPY entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
