@@ -12,13 +12,11 @@ useradd builder -m
 # Give user `builder` passwordless sudo access
 echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-sudo -H -u builder ghcup install stack recommended
-sudo -H -u builder ghcup install ghc recommended
-sudo -H -u builder ghcup install cabal recommended
+sudo -H -u builder ghcup install stack latest
+sudo -H -u builder ghcup install cabal latest
 
-sudo -H -u builder ghcup set stack recommended
-sudo -H -u builder ghcup set ghc recommended
-sudo -H -u builder ghcup set cabal recommended
+sudo -H -u builder ghcup set stack latest
+sudo -H -u builder ghcup set cabal latest
 
 sudo -H -u builder stack config set system-ghc false --global
 sudo -H -u builder stack config set install-ghc false --global
