@@ -52,6 +52,9 @@ EOF
 chmod +x /home/builder/.stack/hooks/ghc-install.sh
 chown builder /home/builder/.stack/hooks/ghc-install.sh
 
+sudo -H -u builder stack update
+sudo -H -u builder cabal update
+
 # Give all users (particularly builder) full access to these files
 chmod -R a+rw .
 
