@@ -3,21 +3,6 @@ set -euo pipefail
 
 FILE="$(basename "$0")"
 
-# Enable the multilib repository
-cat << EOM >> /etc/pacman.conf
-[multilib]
-Include = /etc/pacman.d/mirrorlist
-
-[beyondaur]
-SigLevel = Optional
-Server = https://beyondaur.github.io/__repo__/\$arch
-EOM
-
-pacman -Syu --noconfirm --needed base-devel hx-ghcup-hs libyaml
-pacman -S --noconfirm make gcc ncurses git gnupg xz zlib gmp libffi zlib
-ghcup install stack
-ghcup install cabal
-
 # Makepkg does not allow running as root
 # Create a new user `builder`
 # `builder` needs to have a home directory because some PKGBUILDs will try to
