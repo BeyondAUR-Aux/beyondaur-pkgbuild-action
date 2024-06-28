@@ -21,7 +21,7 @@ sudo -H -u builder ghcup set cabal latest
 sudo -H -u builder stack config set system-ghc false --global
 sudo -H -u builder stack config set install-ghc false --global
 
-touch /home/builder/.stack/hooks/ghc-install.sh
+sudo -H -u builder mkdir -p /home/builder/.stack/hooks
 cat << EOF > /home/builder/.stack/hooks/ghc-install.sh
 #!/bin/sh
 
