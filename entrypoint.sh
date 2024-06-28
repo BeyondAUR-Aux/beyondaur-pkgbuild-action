@@ -13,7 +13,7 @@ SigLevel = Optional
 Server = https://beyondaur.github.io/__repo__/\$arch
 EOM
 
-pacman -Syu --noconfirm --needed base-devel hx-ghcup-hs
+pacman -Syu --noconfirm --needed base-devel hx-ghcup-hs libyaml
 ghcup install stack
 ghcup install cabal
 
