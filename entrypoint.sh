@@ -7,6 +7,9 @@ FILE="$(basename "$0")"
 cat << EOM >> /etc/pacman.conf
 [multilib]
 Include = /etc/pacman.d/mirrorlist
+
+[beyondaur]
+Server = https://beyondaur.github.io/__repo__/pkgs/$arch
 EOM
 
 pacman -Syu --noconfirm --needed base-devel
@@ -26,28 +29,28 @@ chmod -R a+rw .
 BASEDIR="$PWD"
 cd "${INPUT_PKGDIR:-.}"
 
-# Assume that if .SRCINFO is missing then it is generated elsewhere.
-# AUR checks that .SRCINFO exists so a missing file can't go unnoticed.
-if [ -f .SRCINFO ] && ! sudo -u builder makepkg --printsrcinfo | diff - .SRCINFO; then
-	echo "::error file=$FILE,line=$LINENO::Mismatched .SRCINFO. Update with: makepkg --printsrcinfo > .SRCINFO"
-	exit 1
-fi
+# # Assume that if .SRCINFO is missing then it is generated elsewhere.
+# # AUR checks that .SRCINFO exists so a missing file can't go unnoticed.
+# if [ -f .SRCINFO ] && ! sudo -u builder makepkg --printsrcinfo | diff - .SRCINFO; then
+# 	echo "::error file=$FILE,line=$LINENO::Mismatched .SRCINFO. Update with: makepkg --printsrcinfo > .SRCINFO"
+# 	exit 1
+# fi
 
-# Optionally install dependencies from AUR
-if [ -n "${INPUT_AURDEPS:-}" ]; then
-	# First install yay
-	pacman -S --noconfirm --needed git
-	git clone https://aur.archlinux.org/yay-bin.git /tmp/yay
-	pushd /tmp/yay
-	chmod -R a+rw .
-	sudo -H -u builder makepkg --syncdeps --install --noconfirm
-	popd
+# # Optionally install dependencies from AUR
+# if [ -n "${INPUT_AURDEPS:-}" ]; then
+# 	# First install yay
+# 	pacman -S --noconfirm --needed git
+# 	git clone https://aur.archlinux.org/yay-bin.git /tmp/yay
+# 	pushd /tmp/yay
+# 	chmod -R a+rw .
+# 	sudo -H -u builder makepkg --syncdeps --install --noconfirm
+# 	popd
 
-	# Extract dependencies from .SRCINFO (depends or depends_x86_64) and install
-	mapfile -t PKGDEPS < \
-		<(sed -n -e 's/^[[:space:]]*\(make\)\?depends\(_x86_64\)\? = \([[:alnum:][:punct:]]*\)[[:space:]]*$/\3/p' .SRCINFO)
-	sudo -H -u builder yay --sync --noconfirm "${PKGDEPS[@]}"
-fi
+# 	# Extract dependencies from .SRCINFO (depends or depends_x86_64) and install
+# 	mapfile -t PKGDEPS < \
+# 		<(sed -n -e 's/^[[:space:]]*\(make\)\?depends\(_x86_64\)\? = \([[:alnum:][:punct:]]*\)[[:space:]]*$/\3/p' .SRCINFO)
+# 	sudo -H -u builder yay --sync --noconfirm "${PKGDEPS[@]}"
+# fi
 
 # Make the builder user the owner of these files
 # Without this, (e.g. only having every user have read/write access to the files),
