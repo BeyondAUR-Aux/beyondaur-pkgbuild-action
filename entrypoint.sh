@@ -20,6 +20,13 @@ sudo -H -u builder ghcup set stack recommended
 sudo -H -u builder ghcup set ghc recommended
 sudo -H -u builder ghcup set cabal recommended
 
+curl https://raw.githubusercontent.com/haskell/ghcup-hs/master/scripts/hooks/stack/ghc-install.sh \
+  > /home/builder/.stack/hooks/ghc-install.sh
+chown builder /home/builder/.stack/hooks/ghc-install.sh
+
+sudo -H -u builder stack config set system-ghc false --global
+sudo -H -u builder stack config set install-ghc false --global
+
 # Give all users (particularly builder) full access to these files
 chmod -R a+rw .
 
