@@ -14,6 +14,8 @@ Server = https://beyondaur.github.io/__repo__/\$arch
 EOM
 
 pacman -Syu --noconfirm --needed base-devel hx-ghcup-hs
+ghcup install stack
+ghcup install cabal
 
 # Makepkg does not allow running as root
 # Create a new user `builder`
