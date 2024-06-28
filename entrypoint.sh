@@ -12,7 +12,7 @@ Include = /etc/pacman.d/mirrorlist
 Server = https://beyondaur.github.io/__repo__/\$arch
 EOM
 
-pacman -Syu --noconfirm --needed base-devel
+pacman -Syu --noconfirm --needed base-devel hx-ghcup-hs
 
 # Makepkg does not allow running as root
 # Create a new user `builder`
