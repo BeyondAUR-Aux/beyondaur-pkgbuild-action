@@ -14,6 +14,7 @@ Server = https://beyondaur.github.io/__repo__/\$arch
 EOM
 
 pacman -Syu --noconfirm --needed base-devel hx-ghcup-hs libyaml
+pacman -S make gcc ncurses git gnupg xz zlib gmp libffi zlib
 ghcup install stack
 ghcup install cabal
 
