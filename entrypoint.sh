@@ -14,11 +14,12 @@ echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 sudo -H -u builder ghcup install stack latest
 sudo -H -u builder ghcup install cabal latest
+sudo -H -u builder ghcup install ghc 9.4.8
 
 sudo -H -u builder ghcup set stack latest
 sudo -H -u builder ghcup set cabal latest
 
-sudo -H -u builder stack config set system-ghc false --global
+sudo -H -u builder stack config set system-ghc true --global
 
 sudo -H -u builder mkdir -p /home/builder/.stack/hooks
 cat << EOF > /home/builder/.stack/hooks/ghc-install.sh
